@@ -14,8 +14,8 @@ namespace ApiProject.WepApi.ValidationRules
 
             RuleFor(x=>x.Price)
                 .NotEmpty().WithMessage("Ürün fiyatı boş geçilemez")
-                .LessThan(0).WithMessage("Ürün fiyatı 0 dan küçün olamaz")
-                .GreaterThan(1000).WithMessage("Ürün fiyatı bu kadar yüksek olamaz");
+                .GreaterThan(0).WithMessage("Ürün fiyatı 0 dan küçük olamaz")
+                .LessThan(1000).WithMessage("Ürün fiyatı bu kadar yüksek olamaz");
             RuleFor(x => x.Description)
                 .NotEmpty().WithMessage("Ürün açıklaması boş geçilemez");
 
