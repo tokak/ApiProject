@@ -54,7 +54,6 @@ namespace ApiProject.WepApi.Controllers
         [HttpPut]
         public IActionResult Update(UpdateFeatureDto updateFeatureDto)
         {
-            var contact = _context.Features.FirstOrDefault(x => x.Id == updateFeatureDto.Id);
             var map = _mapper.Map<Feature>(updateFeatureDto);
             _context.Features.Update(map);
             _context.SaveChanges();
