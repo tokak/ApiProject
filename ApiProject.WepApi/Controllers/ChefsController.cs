@@ -16,7 +16,7 @@ namespace ApiProject.WepApi.Controllers
             _context = context;
         }
         [HttpGet("GetChefList")]
-        public IActionResult List()
+        public IActionResult GetChefList()
         {
             List<Chef> values = _context.Chefs.ToList();
             return Ok(values);
