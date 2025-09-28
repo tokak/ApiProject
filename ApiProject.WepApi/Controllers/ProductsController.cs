@@ -1,4 +1,5 @@
 ﻿using ApiProject.WepApi.Context;
+using ApiProject.WepApi.Dtos.ProductDtos;
 using ApiProject.WepApi.Entities;
 using AutoMapper;
 using FluentValidation;
@@ -26,7 +27,7 @@ namespace ApiProject.WepApi.Controllers
             var values = _apiContext.Products.ToList();
             return Ok(values);
         }
-        [HttpPost]
+        [HttpPost("create")]
         public IActionResult Create(Product product)
         {
             var validationProduct = _validator.Validate(product);
@@ -38,5 +39,43 @@ namespace ApiProject.WepApi.Controllers
             _apiContext.SaveChanges();
             return Ok("Ürün ekleme işlemi gerçekleşti");
         }
+        [HttpDelete]
+        public IActionResult Delete(int id)
+        {
+            var value = _apiContext.Products.Find(id);
+            _apiContext.Products.Remove(value);
+            _apiContext.SaveChanges();
+            return Ok("Kayıt başarılı bir şekilde silindi.");
+        }
+
+        [HttpGet("GetProduct")]
+        public IActionResult GetProduct(int id)
+        {
+            var value = _apiContext.Products.Find(id);
+            return Ok(value);
+        }
+        [HttpPut]
+        public IActionResult Update(Product product)
+        {
+            var validateProduct = _validator.Validate(product);
+            if (!validateProduct.IsValid)
+            {
+                return BadRequest("Hata oluştu");
+            }
+
+            _apiContext.Products.Update(product);
+            _apiContext.SaveChanges();
+            return Ok("Kayıt güncellendi");
+        }
+        [HttpPost("CreateProductWithCategory")]
+        public IActionResult CreateProductWithCategory(CreateProductDto createProductDto)
+        {
+            var value = _mapper.Map<Product>(createProductDto);
+            _apiContext.Products.Add(value);
+            _apiContext.SaveChanges();
+            return Ok("Ekleme işlemi başarılı");
+
+        }
+
     }
 }

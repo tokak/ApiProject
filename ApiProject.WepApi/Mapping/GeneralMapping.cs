@@ -1,5 +1,6 @@
 ﻿using ApiProject.WepApi.Dtos.FeatureDtos;
 using ApiProject.WepApi.Dtos.MessageDtos;
+using ApiProject.WepApi.Dtos.ProductDtos;
 using ApiProject.WepApi.Entities;
 using AutoMapper;
 
@@ -18,6 +19,9 @@ namespace ApiProject.WepApi.Mapping
             CreateMap<Message, CreateMessageDto>().ReverseMap();
             CreateMap<Message, UpdateMessageDto>().ReverseMap();
             CreateMap<Message, GetByIdMessageDto>().ReverseMap();
+
+
+            CreateMap<Product, CreateProductDto>().ReverseMap();
         }
     }
 }
