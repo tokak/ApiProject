@@ -5,6 +5,7 @@ using AutoMapper;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApiProject.WepApi.Controllers
 {
@@ -33,7 +34,7 @@ namespace ApiProject.WepApi.Controllers
             var validationProduct = _validator.Validate(product);
             if (!validationProduct.IsValid)
             {
-                return BadRequest(validationProduct.Errors.Select(x=>x.ErrorMessage));
+                return BadRequest(validationProduct.Errors.Select(x => x.ErrorMessage));
             }
             _apiContext.Products.Add(product);
             _apiContext.SaveChanges();
@@ -74,7 +75,28 @@ namespace ApiProject.WepApi.Controllers
             _apiContext.Products.Add(value);
             _apiContext.SaveChanges();
             return Ok("Ekleme işlemi başarılı");
+        }
+        [HttpGet("ProductListWithcategory")]
+        public IActionResult ProductListWithcategory()
+        {
+            var values = (from p in _apiContext.Products
+                          join c in _apiContext.Categories
+                          on p.CategoryId equals c.Id into categoryList
+                          from category in categoryList.DefaultIfEmpty()
+                          select new ResultProductWithCategoryDto
+                          {
+                              CategoryId = category != null ? category.Id : 0, // kategori yoksa 0
+                              CategoryName = category != null ? category.Name : null,
+                              Price = p.Price,
+                              Name = p.Name,
+                              Description = p.Description,
+                              ImageUrl = p.ImageUrl,
+                              ProductId = p.Id
+                          });
 
+            //var value = _apiContext.Products.Include(x=>x.Category).ToList();
+            //var map = _mapper.Map<List<ResultProductWithCategoryDto>>(value);
+            return Ok(values);
         }
 
     }

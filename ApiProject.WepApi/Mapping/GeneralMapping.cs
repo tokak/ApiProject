@@ -22,6 +22,7 @@ namespace ApiProject.WepApi.Mapping
 
 
             CreateMap<Product, CreateProductDto>().ReverseMap();
+            CreateMap<Product, ResultProductWithCategoryDto>().ForMember(p=>p.CategoryName,c=>c.MapFrom(k=>k.Category.Name)).ReverseMap();
         }
     }
 }
