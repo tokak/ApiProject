@@ -14,8 +14,8 @@ namespace ApiProject.WepApi.Controllers
         {
             _context = context;
         }
-        [HttpGet("GetCategory")]
-        public IActionResult List()
+        [HttpGet("GetCategoriesList")]
+        public IActionResult GetCategoriesList()
         {
             List<Category> values = _context.Categories.ToList();
             return Ok(values);

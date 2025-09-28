@@ -22,8 +22,8 @@ namespace ApiProject.WepApi.Controllers
             _apiContext = apiContext;
             _validator = validator;
         }
-        [HttpGet("GetList")]
-        public IActionResult List()
+        [HttpGet("GetProductList")]
+        public IActionResult GetProductList()
         {
             var values = _apiContext.Products.ToList();
             return Ok(values);
