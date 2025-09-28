@@ -55,5 +55,14 @@ namespace ApiProject.WepApi.Controllers
             var map = _mapper.Map<GetByIdMessageDto>(message);
             return Ok(map);
         }
+
+        [HttpGet("ListByIsReadFalse")]
+        public IActionResult ListByIsReadFalse()
+        {
+            var values = (from m in _apiContext.Messages
+                         where m.IsRead == false
+                         select m).ToList();
+            return Ok(values);
+        }
     }
 }
