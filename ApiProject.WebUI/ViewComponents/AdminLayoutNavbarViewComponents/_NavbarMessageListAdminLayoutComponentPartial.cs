@@ -1,4 +1,5 @@
-﻿using ApiProject.WebUI.Dtos.MessageDto;
+﻿
+using ApiProjeKampi.WebUI.Dtos.MessageDto;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 

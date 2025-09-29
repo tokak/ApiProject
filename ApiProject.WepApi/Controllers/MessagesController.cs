@@ -2,7 +2,6 @@
 using ApiProject.WepApi.Dtos.MessageDtos;
 using ApiProject.WepApi.Entities;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiProject.WepApi.Controllers
@@ -12,56 +11,60 @@ namespace ApiProject.WepApi.Controllers
     public class MessagesController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly ApiContext _apiContext;
-        public MessagesController(IMapper mapper, ApiContext apiContext)
+        private readonly ApiContext _context;
+        public MessagesController(IMapper mapper, ApiContext context)
         {
             _mapper = mapper;
-            _apiContext = apiContext;
+            _context = context;
         }
+
         [HttpGet("GetList")]
-        public IActionResult List()
+        public IActionResult GetList()
         {
-            var values = _apiContext.Messages.ToList();
-            var map = _mapper.Map<ResultMessageDto>(values);
-            return Ok(map);
+            var value = _context.Messages.ToList();
+            return Ok(_mapper.Map<List<ResultMessageDto>>(value));
         }
+
         [HttpPost]
-        public IActionResult Create(CreateMessageDto createMessageDto) 
+        public IActionResult CreateMessage(CreateMessageDto createMessageDto)
         {
-            var map = _mapper.Map<Message>(createMessageDto);
-            _apiContext.Messages.Add(map);
-            return Ok("Kayıt gerçekleştirildi.");
+            var value = _mapper.Map<Message>(createMessageDto);
+            _context.Messages.Add(value);
+            _context.SaveChanges();
+            return Ok("Mesaj Ekleme İşlemi Başarılı");
         }
+
         [HttpDelete]
-        public IActionResult Delete(int id)
+        public IActionResult DeleteMessage(int id)
         {
-            var message = _apiContext.Messages.Find(id);
-            _apiContext.Messages.Remove(message);
-            return Ok("Kayıt başarılı ile silindi");
+            var value = _context.Messages.Find(id);
+            _context.Messages.Remove(value);
+            _context.SaveChanges();
+            return Ok("Mesaj Silme İşlemi Başarılı");
         }
-        [HttpPut]
-        public IActionResult Update(UpdateMessageDto updateMessageDto)
-        {
-            var map = _mapper.Map<Message>(updateMessageDto);
-            _apiContext.Messages.Update(map);
-            _apiContext.SaveChanges();
-            return Ok("Kayıt güncellendi.");
-            
-        }
+
         [HttpGet("GetMessage")]
         public IActionResult GetMessage(int id)
         {
-            var message = _apiContext.Messages.Find(id);
-            var map = _mapper.Map<GetByIdMessageDto>(message);
-            return Ok(map);
+            var value = _context.Messages.Find(id);
+            return Ok(_mapper.Map<GetByIdMessageDto>(value));
         }
 
+        [HttpPut]
+        public IActionResult UpdateMessage(UpdateMessageDto updateMessageDto)
+        {
+            var value = _mapper.Map<Message>(updateMessageDto);
+            _context.Messages.Update(value);
+            _context.SaveChanges();
+            return Ok("Mesaj Güncelleme İşlemi Başarılı");
+        }
+     
         [HttpGet("ListByIsReadFalse")]
         public IActionResult ListByIsReadFalse()
         {
-            var values = (from m in _apiContext.Messages
-                         where m.IsRead == false
-                         select m).ToList();
+            var values = (from m in _context.Messages
+                          where m.IsRead == false
+                          select m).ToList();
             return Ok(values);
         }
     }

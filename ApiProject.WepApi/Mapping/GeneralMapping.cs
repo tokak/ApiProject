@@ -5,6 +5,7 @@ using ApiProject.WepApi.Dtos.MessageDtos;
 using ApiProject.WepApi.Dtos.NotificationDtos;
 using ApiProject.WepApi.Dtos.ProductDtos;
 using ApiProject.WepApi.Entities;
+using ApiProjeKampi.WebApi.Dtos.ImageDtos;
 using ApiProjeKampi.WebApi.Dtos.ReservationDto;
 using AutoMapper;
 
@@ -41,6 +42,11 @@ namespace ApiProject.WepApi.Mapping
             CreateMap<Reservation, CreateReservationDto>().ReverseMap();
             CreateMap<Reservation, UpdateReservationDto>().ReverseMap();
             CreateMap<Reservation, GetReservationByIdDto>().ReverseMap();
+
+            CreateMap<Image, ResultImageDto>().ReverseMap();
+            CreateMap<Image, CreateImageDto>().ReverseMap();
+            CreateMap<Image, UpdateImageDto>().ReverseMap();
+            CreateMap<Image, GetImageByIdDto>().ReverseMap();
 
             CreateMap<Product, CreateProductDto>().ReverseMap();
             CreateMap<Product, ResultProductWithCategoryDto>().ForMember(p=>p.CategoryName,c=>c.MapFrom(k=>k.Category.Name)).ReverseMap();

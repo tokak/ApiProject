@@ -16,7 +16,7 @@ namespace ApiProject.WepApi.Controllers
             _context = context;
         }
         [HttpGet("GetContactList")]
-        public IActionResult List()
+        public IActionResult GetContactList()
         {
             List<Contact> values = _context.Contacts.ToList();
             return Ok(values);

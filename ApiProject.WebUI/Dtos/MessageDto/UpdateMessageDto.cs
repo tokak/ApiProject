@@ -1,6 +1,6 @@
 ﻿namespace ApiProjeKampi.WebUI.Dtos.MessageDto
 {
-    public class ResultMessageIsReadFalseDto
+    public class UpdateMessageDto
     {
         public int Id { get; set; }
         public string NameSurname { get; set; }
