@@ -19,7 +19,7 @@ namespace ApiProject.WepApi.Controllers
             _mapper = mapper;
         }
         [HttpGet("GetFeatureList")]
-        public IActionResult List()
+        public IActionResult GetFeatureList()
         {
             List<Feature> values = _context.Features.ToList();
             List<ResultFeatureDto> map = _mapper.Map<List<ResultFeatureDto>>(values);

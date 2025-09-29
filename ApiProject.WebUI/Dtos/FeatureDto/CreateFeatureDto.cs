@@ -1,4 +1,4 @@
-﻿namespace ApiProject.WepApi.Dtos.FeatureDtos
+﻿namespace ApiProject.WebUI.Dtos.FeatureDto
 {
     public class CreateFeatureDto
     {
