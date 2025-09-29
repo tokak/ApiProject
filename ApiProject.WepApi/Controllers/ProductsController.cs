@@ -91,11 +91,10 @@ namespace ApiProject.WepApi.Controllers
                               Name = p.Name,
                               Description = p.Description,
                               ImageUrl = p.ImageUrl,
-                              ProductId = p.Id
+                              Id = p.Id
                           });
 
-            //var value = _apiContext.Products.Include(x=>x.Category).ToList();
-            //var map = _mapper.Map<List<ResultProductWithCategoryDto>>(value);
+          
             return Ok(values);
         }
 
