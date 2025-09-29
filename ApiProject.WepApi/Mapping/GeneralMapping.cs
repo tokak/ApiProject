@@ -1,4 +1,5 @@
-﻿using ApiProject.WepApi.Dtos.CategoryDto;
+﻿using ApiProject.WepApi.Dtos.AboutDto;
+using ApiProject.WepApi.Dtos.CategoryDto;
 using ApiProject.WepApi.Dtos.FeatureDtos;
 using ApiProject.WepApi.Dtos.MessageDtos;
 using ApiProject.WepApi.Dtos.NotificationDtos;
@@ -29,6 +30,11 @@ namespace ApiProject.WepApi.Mapping
             CreateMap<Notification, CreateNotificationDto>().ReverseMap();
             CreateMap<Notification, UpdateNotificationDto>().ReverseMap();
             CreateMap<Notification, GetNotificationByIdDto>().ReverseMap();
+
+            CreateMap<About, ResultAboutDto>().ReverseMap();
+            CreateMap<About, CreateAboutDto>().ReverseMap();
+            CreateMap<About, UpdateAboutDto>().ReverseMap();
+            CreateMap<About, GetAboutByIdDto>().ReverseMap();
 
             CreateMap<Product, CreateProductDto>().ReverseMap();
             CreateMap<Product, ResultProductWithCategoryDto>().ForMember(p=>p.CategoryName,c=>c.MapFrom(k=>k.Category.Name)).ReverseMap();
