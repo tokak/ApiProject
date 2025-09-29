@@ -1,8 +1,7 @@
-﻿namespace ApiProject.WepApi.Entities
+﻿namespace ApiProjeKampi.WebApi.Dtos.ReservationDto
 {
-    public class Reservation
+    public class CreateReservationDto
     {
-        public int Id { get; set; }
         public string NameSurname { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
