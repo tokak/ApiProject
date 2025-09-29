@@ -1,5 +1,7 @@
 ﻿using ApiProject.WepApi.Context;
+using ApiProject.WepApi.Dtos.CategoryDto;
 using ApiProject.WepApi.Entities;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiProject.WepApi.Controllers
@@ -9,10 +11,12 @@ namespace ApiProject.WepApi.Controllers
     public class CategoriesController : ControllerBase
     {
         private readonly ApiContext _context;
+        private readonly IMapper _mapper;
 
-        public CategoriesController(ApiContext context)
+        public CategoriesController(ApiContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
         [HttpGet("GetCategoriesList")]
         public IActionResult GetCategoriesList()
@@ -22,9 +26,10 @@ namespace ApiProject.WepApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Category category)
+        public IActionResult Create(CreateCategoryDto category)
         {
-            _context.Categories.Add(category);
+            var map = _mapper.Map<Category>(category);
+            _context.Categories.Add(map);
             _context.SaveChanges();
             return Ok("Kategori eklendi");
         }
@@ -37,11 +42,19 @@ namespace ApiProject.WepApi.Controllers
             return Ok("Kategori Silme İşlemi Başarılı");
         }
         [HttpPut]
-        public IActionResult Update(Category category)
+        public IActionResult Update(UpdateCategoryDto category)
         {
-            _context.Categories.Update(category);
+            var map = _mapper.Map<Category>(category);
+            _context.Categories.Update(map);
             _context.SaveChanges();
             return Ok("Güncelleme işlemi başarılı");
         }
+        [HttpGet("GetCategory")]
+        public IActionResult GetCategory(int id)
+        {
+            var value = _context.Categories.Find(id);
+            return Ok(value);
+        }
+
     }
 }

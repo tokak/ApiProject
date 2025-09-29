@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace ApiProject.WebUI.ViewComponents.AdminLayoutViewComponents
+namespace ApiProject.WebUI.ViewComponents.AdminLayoutNavbarViewComponents
 {
     public class _NavbarMessageListAdminLayoutComponentPartial:ViewComponent
     {
