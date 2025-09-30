@@ -104,7 +104,7 @@ namespace ApiProject.WebUI.Controllers
         {
 
             var client = new HttpClient();
-            var token = "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";
+            var token = "";
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             try
             {
