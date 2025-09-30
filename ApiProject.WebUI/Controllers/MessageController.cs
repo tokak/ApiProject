@@ -104,13 +104,13 @@ namespace ApiProject.WebUI.Controllers
         {
 
             var client = new HttpClient();
-            var token = "";
+            var token = "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";
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             try
             {
                 var translateRequestBody = new
                 {
-                    inputs = createMessageDto.MessageDetails
+                    inputs = createMessageDto.Details
                 };
                 var translateJson = System.Text.Json.JsonSerializer.Serialize(translateRequestBody);
                 var translateContent = new StringContent(translateJson, Encoding.UTF8, "application/json");
@@ -118,7 +118,7 @@ namespace ApiProject.WebUI.Controllers
                 var translateResponse = await client.PostAsync("https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-tr-en", translateContent);
                 var translateResponseString = await translateResponse.Content.ReadAsStringAsync();
 
-                string englishText = createMessageDto.MessageDetails;
+                string englishText = createMessageDto.Details;
                 if (translateResponseString.TrimStart().StartsWith("["))
                 {
                     var translateDoc = JsonDocument.Parse(translateResponseString);
